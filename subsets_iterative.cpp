@@ -1,53 +1,43 @@
-#include <iostream>
-#include <vector>
 
-#include <math.h>
-#include <cstddef>
+#include <iostream>
+#include<vector>
+#include<cmath>
+
 using namespace std;
 /*
-1  2   3 
+Alogorithme : 
+1 2 3 
+number of combination equal 2^n =8
 
+1 2 3 
+0 0 0
+1 0 0  i & 1<<j => result =1 
+0 1 0
+1 1 0
+. . .
+using bitmask :we can iterate all combination and check wether we must add number or not
+time complexity O(N*2^n)
+space complexity O(1)
 */
- 
- /*
- algorithme using bitmasq to resolv this problem 
- retrieve the number of all possibilt 
- 2^n-1
- run for loop from the 0 to sum of all possibilty 
- iterate the array and apply this masq 
- 
- counter & (j<<1)
- 
- 
- */
- /*
- count =0 
- *count=1 
- j=0
-   
- *//*
- void subset(vector<int> input)
- {
-     int count=pow(2,input.size())-1;
-     cout<<"count=="<<count<<endl;
-     for(int i=0;i<=count;i++)
-     {   cout<<"set======"<<endl;
-         for(int j=0;j<input.size();j++)
-         {
-            // cout<<"j"<<(1<<j)<<endl;
-             if(i & (1<<j))
-             {
-                 cout<<input[j]<<" ";
-             }
-         }
-     }
-     
- }*/
- /*
- time complexity O(n*2^n)
- space complexity O(1)
- */
- 
+vector<vector<int>> subset_iterative(vector<int>input)
+{
+    int count=pow(input.size(),2)-1;
+    vector<int> subset;
+    vector<vector<int>>out;
+    for(int i=0;i<count;i++)
+    {
+        subset={};
+        for(int j=0;j<input.size();j++)
+        {
+            if(i & (1<<j))
+            {
+                subset.push_back(input[j]);
+            }
+        }
+        out.push_back(subset);
+    }
+    return out;
+}
  void subset(vector<int> input)
  {
      int i=0;
@@ -73,10 +63,17 @@ using namespace std;
         break;
      }
  }
-
 int main()
 {
-    vector<int> input={1,2,3};
-    subset(input);
+    vector<int> input ={1,2,3};
+    vector<vector<int>>out=subset_iterative(input);
+    for(int i=0;i<out.size();i++)
+    {
+        for(int j=0;j<out[i].size();j++)
+        {
+            cout<<out[i][j]<< " ";
+        }
+    }
+
     return 0;
 }
